@@ -1,0 +1,65 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+
+{% block body %}
+      <div class="listpage">
+        {% if list.image%}
+        <img src='{{list.image}}'>
+        {% endif %}
+
+            {% if user.is_authenticated %}
+            <form action="{% url 'addwatchlist' list=list.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-dark" value="ADD/REMOVE-> WATCHLIST">
+            </form>
+            {% endif %}
+
+        <h4>{{list.title}}</h4>
+        <p>{{list.description}}</p>
+        <h6>Category:<a href="{% url 'category_view' category=list.category %}">{{list.category}}</a></h6>
+        <h6>Starting Bid: {{list.starting_bid}}$</h6>
+        {% if list.closed == False %}
+          {% if list.final_bid %}
+            <h6>Current Bid: {{ list.final_bid }}$</h6>
+          {% endif %}
+          <h6>Your bid should be <b>Higher</b> than the Starting/Current Bid </h6>
+          <div class="bid_put">
+            <div>
+                <form  action="{% url 'addbid' list=list.id %}" method="post" class="bid_put">
+                  {% csrf_token %}
+                  <input type="number" name="current_bid" placeholder="put your bid" class="form-control bid_form">
+                  <input type="submit" value="Confirm" class="btn btn-success">
+                </form>
+            </div>
+            <div>
+                  <img src="{% static 'auctions/profit.svg'%}" class="profit" >
+            </div>
+          </div>
+        {% else %}
+            {% if list.final_bid %}
+              <h6>The winning price is <b>{{list.final_bid}}</b>$</h6>
+            {% endif %}
+        {% endif %}
+        <form action="{% url 'comment' list=list.id %}" method="post" class="comment_put">
+          {% csrf_token %}
+          {{ comment_form }}
+          <input type="submit" value="Comment" class="btn btn-success" id="cmnt-btn">
+        </form>
+      </div>
+      {% if list.user == request.user %}
+          <form action="{% url 'close' list=list.id %}" method="post">
+              {% csrf_token %}
+              <input type="submit" class="btn btn-danger" value="CLOSE AUCTION">
+          </form>
+          <form action="{% url 'delete' list=list.id %}" method="post">
+              {% csrf_token %}
+              <input type="submit" class="btn btn-danger" value="DELETE AUCTION" style="margin-top: 5px;">
+          </form>
+      {% endif %}
+      <div class="comments">
+        {% for comment in comments %}
+            <h6> {{comment.user}}: {{comment.comment_text}}</h6>
+        {% endfor %}
+      </div>
+{% endblock %}

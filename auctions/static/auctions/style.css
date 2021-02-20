@@ -1,0 +1,64 @@
+body {
+    padding: 10px;
+}
+
+.GeneralLists{
+    display: grid;
+    grid-template-columns: repeat(5, 20%);
+    grid-template-rows: auto;
+    grid-column-gap: 5px;
+    grid-row-gap: 5px;
+}
+.GeneralList{
+    border-style: solid;
+    border-color: #000000;
+    border-width: 2px;
+    display: inline-grid;
+    max-width:200px;
+  }
+.GeneralList img{
+    max-height: 70%;
+    width: 100%;
+    display:inline;
+}
+
+.listpage{
+  border-style: solid;
+  border-color: #000000;
+  max-width: 400px;
+  margin-right: 50%;
+}
+.listpage img{
+  max-width: 300px;
+  display: inline;
+}
+.bid_put{
+  display:flex;
+  flex-direction: row;
+}
+.profit{
+  width: 24px;
+}
+.bid_form{
+  margin-right: 5px;
+}
+#comment_form{
+  max-height: 50px;
+  width: 60%;
+}
+#cmnt-btn{
+  height: 10%;
+  margin: 5px auto auto 5px;
+}
+.comment_put{
+  display:flex;
+  flex-direction: row;
+  align-content: center;
+}
+.comments{
+  border-style: solid;
+  border-color: #000000;
+  border-width: 2px;
+  display: inline-block;
+  width:250px;
+}

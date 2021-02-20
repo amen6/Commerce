@@ -1,0 +1,25 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+
+{% block body %}
+    <h2>Active Listings</h2>
+    <div class="GeneralLists">
+        {% for list in lists %}
+
+                <div class="GeneralList">
+                  {% if list.image%}
+                  <img src='{{list.image}}'>
+                  {% endif %}
+                  <h4><a {% if user.is_authenticated %} href="{% url 'list_view' list=list.id %}" {% endif %}>{{list.title}}</a></h4>
+                  <p>{{list.description}}</p>
+                  <h6><a href="{% url 'category_view' category=list.category %}">{{list.category}}</a></h6>
+                  <h6>First Bid:{{list.starting_bid}}$</h6>
+                  {% if list.final_bid %}
+                    <h6>Current Bid: {{list.final_bid}}$</h6>
+                  {% endif %}
+                </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
