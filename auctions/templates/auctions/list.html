@@ -58,6 +58,7 @@
           </form>
       {% endif %}
       <div class="comments">
+        <h3>Comments:</h3>
         {% for comment in comments %}
             <h6> {{comment.user}}: {{comment.comment_text}}</h6>
         {% endfor %}
